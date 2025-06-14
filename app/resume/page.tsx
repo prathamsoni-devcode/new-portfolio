@@ -81,8 +81,13 @@ export default function ResumePage() {
           <p className="text-sm text-muted-foreground">September 2020 - July 2024</p>
         </div>
 
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center gap-4 mt-8">
           <Button asChild>
+            <a href="https://pratham-portfolio.s3.ap-south-1.amazonaws.com/Resume-PrathamSoni.pdf" download>
+              Download PDF
+            </a>
+          </Button>
+          <Button variant="outline" asChild>
             <Link href="/">Back to Portfolio</Link>
           </Button>
         </div>

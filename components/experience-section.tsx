@@ -164,7 +164,7 @@ export function ExperienceSection() {
                   <h4 className="text-lg font-semibold mb-2">Want to know more about my journey?</h4>
                   <p className="text-muted-foreground mb-4">Discover my complete work history and achievements</p>
                   <Button className="group hover:scale-105 transition-transform duration-300" asChild>
-                    <a href="/resume.pdf" download>
+                    <a href="https://pratham-portfolio.s3.ap-south-1.amazonaws.com/Resume-PrathamSoni.pdf" download>
                       <FileText className="h-4 w-4 mr-2 group-hover:animate-pulse" />
                       View Full Resume
                     </a>

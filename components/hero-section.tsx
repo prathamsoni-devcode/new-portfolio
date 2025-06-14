@@ -107,7 +107,7 @@ export function HeroSection() {
               className="group border-2 border-primary hover:bg-primary hover:text-primary-foreground transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl w-full sm:w-auto"
               asChild
             >
-              <a href="/resume.pdf" download>
+              <a href="https://pratham-portfolio.s3.ap-south-1.amazonaws.com/Resume-PrathamSoni.pdf" download>
                 <Download className="h-4 w-4 sm:h-5 sm:w-5 mr-2 group-hover:animate-bounce" />
                 Download Resume
               </a>
