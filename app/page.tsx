@@ -10,13 +10,28 @@ import { Footer } from "@/components/footer"
 export default function Page() {
   return (
     <main className="w-full">
+      {/* SEO-friendly semantic structure */}
       <Navbar />
+
+      {/* Hero Section with proper heading hierarchy */}
       <HeroSection />
+
+      {/* About Section */}
       <AboutSection />
+
+      {/* Skills Section */}
       <SkillsSection />
+
+      {/* Experience Section */}
       <ExperienceSection />
+
+      {/* Projects Section */}
       <ProjectsSection />
+
+      {/* Contact Section */}
       <ContactSection />
+
+      {/* Footer */}
       <Footer />
     </main>
   )
