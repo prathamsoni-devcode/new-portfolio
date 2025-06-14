@@ -20,7 +20,7 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 w-full">
+    <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden pt-16 w-full">
       {/* Enhanced background with mouse-following effect */}
       <div className="absolute inset-0 z-0 w-full">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-slate-50 dark:from-slate-950 dark:via-gray-900 dark:to-slate-950 opacity-70"></div>
@@ -123,6 +123,16 @@ export function HeroSection() {
               <a
                 href="#about"
                 className="relative inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 animate-bounce"
+                onClick={(e) => {
+                  e.preventDefault()
+                  const aboutSection = document.getElementById("about")
+                  if (aboutSection) {
+                    aboutSection.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    })
+                  }
+                }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

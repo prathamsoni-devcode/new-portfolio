@@ -60,7 +60,7 @@ export function ExperienceSection() {
     <section
       id="experience"
       ref={sectionRef}
-      className="section-padding bg-secondary/30 dark:bg-secondary/10 relative overflow-hidden"
+      className="section-padding bg-secondary/30 dark:bg-secondary/10 relative w-full"
     >
       {/* Floating background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

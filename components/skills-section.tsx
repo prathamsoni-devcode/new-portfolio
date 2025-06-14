@@ -79,7 +79,7 @@ export function SkillsSection() {
   ]
 
   return (
-    <section id="skills" ref={sectionRef} className="section-padding relative overflow-hidden">
+    <section id="skills" ref={sectionRef} className="section-padding relative w-full">
       {/* Animated background grid */}
       <div className="absolute inset-0 opacity-5">
         <div

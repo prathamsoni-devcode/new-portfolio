@@ -76,7 +76,7 @@ export function ProjectsSection() {
   ]
 
   return (
-    <section id="projects" ref={sectionRef} className="section-padding">
+    <section id="projects" ref={sectionRef} className="section-padding w-full">
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2

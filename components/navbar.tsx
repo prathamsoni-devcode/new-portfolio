@@ -50,6 +50,17 @@ export function Navbar() {
               key={item.name}
               href={item.href}
               className="px-3 py-2 text-sm font-medium rounded-md hover:bg-secondary hover:text-primary transition-colors"
+              onClick={(e) => {
+                e.preventDefault()
+                const targetId = item.href.replace("#", "")
+                const targetElement = document.getElementById(targetId)
+                if (targetElement) {
+                  targetElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  })
+                }
+              }}
             >
               {item.name}
             </Link>
@@ -78,7 +89,20 @@ export function Navbar() {
                 key={item.name}
                 href={item.href}
                 className="block px-3 py-2 text-base font-medium hover:bg-secondary hover:text-primary rounded-md transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMobileMenuOpen(false)
+                  const targetId = item.href.replace("#", "")
+                  const targetElement = document.getElementById(targetId)
+                  if (targetElement) {
+                    setTimeout(() => {
+                      targetElement.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      })
+                    }, 100)
+                  }
+                }}
               >
                 {item.name}
               </Link>

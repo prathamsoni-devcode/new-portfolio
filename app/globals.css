@@ -66,14 +66,20 @@
 
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
+    scroll-padding-top: 80px;
   }
 
   body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
     width: 100%;
-    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Remove any overflow hidden that might cause issues */
+  main {
+    width: 100%;
+    overflow-x: hidden;
   }
 }
 
@@ -203,16 +209,16 @@
   animation-delay: 4s;
 }
 
-/* Section spacing */
+/* Section spacing - remove any height constraints */
 .section-padding {
   @apply py-16 md:py-24;
 }
 
-/* Container */
+/* Container - ensure no scroll conflicts */
 .container-custom {
   @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 /* Custom gradient text */
@@ -256,19 +262,17 @@
 
 /* Mobile-specific fixes */
 @media (max-width: 768px) {
+  html {
+    scroll-padding-top: 60px;
+  }
+
   .container-custom {
     padding-left: 1rem;
     padding-right: 1rem;
   }
 
-  /* Ensure no horizontal overflow on mobile */
-  * {
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Fix for background elements that might cause overflow */
-  .absolute {
-    max-width: 100vw;
+  /* Ensure sections don't create their own scroll */
+  section {
+    overflow: visible;
   }
 }

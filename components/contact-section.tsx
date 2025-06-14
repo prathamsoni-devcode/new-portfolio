@@ -99,7 +99,7 @@ export function ContactSection() {
   ]
 
   return (
-    <section id="contact" ref={sectionRef} className="section-padding">
+    <section id="contact" ref={sectionRef} className="section-padding w-full">
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2

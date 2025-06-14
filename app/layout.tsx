@@ -20,9 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} overflow-x-hidden`}>
+      <body className={`${inter.className}`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <div className="min-h-screen w-full overflow-x-hidden">{children}</div>
+          {children}
         </ThemeProvider>
       </body>
     </html>
