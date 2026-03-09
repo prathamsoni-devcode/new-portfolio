@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 import { ThemeProvider } from "next-themes"
 
@@ -128,9 +129,14 @@ export default function RootLayout({
         <meta name="geo.placename" content="Pune" />
         <meta name="geo.position" content="18.5204;73.8567" />
         <meta name="ICBM" content="18.5204, 73.8567" />
-
+      </head>
+      <body className={`${inter.className}`}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
         {/* Structured Data for SEO */}
-        <script
+        <Script
+          id="person-structured-data"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -199,11 +205,6 @@ export default function RootLayout({
             }),
           }}
         />
-      </head>
-      <body className={`${inter.className}`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
       </body>
     </html>
   )
