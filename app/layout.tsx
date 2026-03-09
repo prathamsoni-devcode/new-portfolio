@@ -131,11 +131,6 @@ export default function RootLayout({
         <meta name="geo.placename" content="Pune" />
         <meta name="geo.position" content="18.5204;73.8567" />
         <meta name="ICBM" content="18.5204, 73.8567" />
-      </head>
-      <body className={`${inter.className}`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
         {/* Structured Data for SEO */}
         <Script
           id="person-structured-data"
@@ -149,7 +144,7 @@ export default function RootLayout({
               description:
                 "Experienced Software Engineer specializing in Java, Spring Boot, Flutter, and AWS cloud solutions",
               url: "https://prathamsoni.vercel.app",
-              image: "https://prathamsoni.vercel.app/images/pratham-profile.png",
+              image: "https://prathamsoni.vercel.app/images/pratham-profile.jpg",
               email: "pratham1108soni@gmail.com",
               telephone: "+91-9079843800",
               address: {
@@ -164,14 +159,14 @@ export default function RootLayout({
                 "Spring Boot",
                 "Flutter",
                 "AWS",
-                "Microservices",
+                "LangChain",
+                "LLM APIs",
+                "Pinecone",
+                "Docker",
                 "React",
                 "Next.js",
-                "MySQL",
                 "PostgreSQL",
                 "MongoDB",
-                "Docker",
-                "Kubernetes",
               ],
               hasCredential: [
                 {
@@ -196,7 +191,7 @@ export default function RootLayout({
               },
               worksFor: {
                 "@type": "Organization",
-                name: "ConsultAdd Inc",
+                name: "Consultadd",
                 address: {
                   "@type": "PostalAddress",
                   addressLocality: "Pune",
@@ -207,6 +202,11 @@ export default function RootLayout({
             }),
           }}
         />
+      </head>
+      <body className={`${inter.className}`}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
