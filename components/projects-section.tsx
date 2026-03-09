@@ -4,12 +4,30 @@ import { useEffect, useRef, useState } from "react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Github, ExternalLink } from "lucide-react"
+import { Github, ExternalLink, Loader2 } from "lucide-react"
 import Image from "next/image"
+import { useProjects } from "@/hooks/useFetchPortfolioData"
 
 export function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const { projects, isLoading, error } = useProjects()
+
+  // Fallback projects if database is not set up
+  const fallbackProjects = [
+    {
+      id: 1,
+      title: "Uber Spring Boot App",
+      description:
+        "Designed a ride-booking backend system implementing strategy patterns for driver allocation and fare calculation. Features geospatial queries with PostGIS for proximity-based driver matching and JWT-based authentication.",
+      image: "/placeholder.svg?height=300&width=600",
+      technologies: ["Spring Boot", "Postgres", "PostGIS", "JWT"],
+      github_url: "https://github.com/prathamsoni11",
+      live_url: "",
+    },
+  ]
+
+  const displayProjects = projects && projects.length > 0 ? projects : fallbackProjects
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,46 +53,6 @@ export function ProjectsSection() {
     }
   }, [])
 
-  // Update the projects array with your actual projects
-  const projects = [
-    {
-      title: "Verse Chat",
-      description:
-        "A real-time messaging application with secure messaging, push notifications, and offline data persistence. Features include group chats, media sharing, and end-to-end encryption.",
-      image: "/placeholder.svg?height=300&width=600",
-      technologies: ["Flutter", "Hive", "MVVM", "Socket.IO", "Firebase", "Node.js", "MongoDB"],
-      github: "https://github.com/prathamsoni11/verse-chat",
-      live: "https://prathamsoni.vercel.app/projects/verse-chat",
-    },
-    {
-      title: "Notes App",
-      description:
-        "A note-taking application with full CRUD operations and persistent storage, following MVVM architecture. Features include categorization, search functionality, and data backup.",
-      image: "/placeholder.svg?height=300&width=600",
-      technologies: ["Java", "SQLite", "MVVM"],
-      github: "https://github.com/prathamsoni11/notes-app",
-      live: "https://prathamsoni.vercel.app/projects/notes",
-    },
-    {
-      title: "Microservices Architecture",
-      description:
-        "A scalable microservices system with service discovery, API gateway, and secure authentication. Implemented with Spring Boot and deployed on AWS infrastructure.",
-      image: "/placeholder.svg?height=300&width=600",
-      technologies: ["Java", "Spring Boot", "Eureka", "API Gateway", "JWT", "AWS"],
-      github: "https://github.com/prathamsoni11/microservices-demo",
-      live: "https://prathamsoni.vercel.app/projects/microservices",
-    },
-    {
-      title: "Portfolio Website",
-      description:
-        "A modern, responsive portfolio website built with Next.js and Tailwind CSS. Features dark mode, animations, and a contact form.",
-      image: "/placeholder.svg?height=300&width=600",
-      technologies: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
-      github: "https://github.com/prathamsoni11/portfolio",
-      live: "https://prathamsoni.vercel.app",
-    },
-  ]
-
   return (
     <section id="projects" ref={sectionRef} className="section-padding w-full">
       <div className="container-custom">
@@ -93,30 +71,44 @@ export function ProjectsSection() {
           ></div>
         </div>
 
+        {isLoading && (
+          <div className="flex justify-center items-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        )}
+
+        {error && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Failed to load projects</p>
+          </div>
+        )}
+
         <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
+          {displayProjects.map((project, index) => (
             <Card
-              key={index}
+              key={project.id || index}
               className={`overflow-hidden transition-all duration-700 hover:shadow-lg ${
                 isVisible ? "opacity-100 transform translate-y-0" : "opacity-0 transform translate-y-10"
               }`}
               style={{ transitionDelay: `${300 + index * 150}ms` }}
             >
-              <div className="relative h-48 w-full overflow-hidden">
-                <Image
-                  src={project.image || "/placeholder.svg"}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </div>
+              {project.image_url && (
+                <div className="relative h-48 w-full overflow-hidden">
+                  <Image
+                    src={project.image_url || "/placeholder.svg"}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </div>
+              )}
               <CardHeader>
                 <CardTitle>{project.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
+                  {project.technologies && project.technologies.map((tech: string) => (
                     <Badge key={tech} variant="secondary">
                       {tech}
                     </Badge>
@@ -124,18 +116,22 @@ export function ProjectsSection() {
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between">
-                <Button variant="outline" size="sm" className="gap-2" asChild>
-                  <a href={project.github} target="_blank" rel="noopener noreferrer">
-                    <Github className="h-4 w-4" />
-                    Code
-                  </a>
-                </Button>
-                <Button size="sm" className="gap-2" asChild>
-                  <a href={project.live} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4" />
-                    Live Demo
-                  </a>
-                </Button>
+                {project.github_url && (
+                  <Button variant="outline" size="sm" className="gap-2" asChild>
+                    <a href={project.github_url} target="_blank" rel="noopener noreferrer">
+                      <Github className="h-4 w-4" />
+                      Code
+                    </a>
+                  </Button>
+                )}
+                {project.live_url && (
+                  <Button size="sm" className="gap-2" asChild>
+                    <a href={project.live_url} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-4 w-4" />
+                      Live Demo
+                    </a>
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}

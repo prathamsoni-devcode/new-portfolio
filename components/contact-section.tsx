@@ -55,26 +55,41 @@ export function ContactSection() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      })
 
-    setIsSubmitting(false)
-    setSubmitMessage({
-      type: "success",
-      text: "Thank you! Your message has been sent successfully.",
-    })
+      if (!response.ok) throw new Error('Failed to send message')
 
-    // Reset form
-    setFormState({
-      name: "",
-      email: "",
-      message: "",
-    })
+      setSubmitMessage({
+        type: "success",
+        text: "Thank you! Your message has been sent successfully. I'll get back to you soon!",
+      })
 
-    // Clear success message after 5 seconds
-    setTimeout(() => {
-      setSubmitMessage(null)
-    }, 5000)
+      // Reset form
+      setFormState({
+        name: "",
+        email: "",
+        message: "",
+      })
+    } catch (error) {
+      setSubmitMessage({
+        type: "error",
+        text: "Failed to send message. Please try again later.",
+      })
+    } finally {
+      setIsSubmitting(false)
+
+      // Clear message after 5 seconds
+      setTimeout(() => {
+        setSubmitMessage(null)
+      }, 5000)
+    }
   }
 
   const contactInfo = [
