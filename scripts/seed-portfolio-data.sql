@@ -3,7 +3,7 @@ INSERT INTO projects (title, description, technologies, image_url, github_url, l
 (
   'Uber Spring Boot App',
   'Designed a ride-booking backend system implementing strategy patterns for driver allocation and fare calculation. Developed layered architecture with JWT authentication and PostGIS for geospatial queries.',
-  '["Spring Boot", "Postgres", "PostGIS", "JWT", "REST APIs"]',
+  ARRAY['Spring Boot', 'Postgres', 'PostGIS', 'JWT', 'REST APIs'],
   '/placeholder.svg',
   'https://github.com/prathamsoni11',
   '',
@@ -12,56 +12,53 @@ INSERT INTO projects (title, description, technologies, image_url, github_url, l
 (
   'LLM-driven Transcript Analysis Platform',
   'Designed and developed Spring Boot backend services to integrate LLM-based transcript analysis. Implemented automated transcript processing pipeline with intelligent chunking and Pinecone vector DB storage.',
-  '["Spring Boot", "LangChain", "OpenRouter", "Pinecone", "AWS", "Docker", "JWT"]',
+  ARRAY['Spring Boot', 'LangChain', 'OpenRouter', 'Pinecone', 'AWS', 'Docker', 'JWT'],
   '/placeholder.svg',
   'https://github.com/prathamsoni11',
   '',
   NOW()
-)
-ON CONFLICT (title) DO NOTHING;
+);
 
 -- Seed Experiences Table
-INSERT INTO experiences (title, company, period, technologies, start_date, end_date, created_at) VALUES
+INSERT INTO experiences (title, company, period, technologies, description, display_order, created_at) VALUES
 (
   'Software Engineer',
   'Consultadd',
   'Feb 2024 - Present',
-  '["Spring Boot", "LangChain", "OpenRouter", "Pinecone", "AWS", "Docker", "JWT"]',
-  '2024-02-01',
-  NULL,
+  ARRAY['Spring Boot', 'LangChain', 'OpenRouter', 'Pinecone', 'AWS', 'Docker', 'JWT'],
+  'Designing and developing Spring Boot backend services with LLM integration using LangChain and OpenRouter APIs.',
+  1,
   NOW()
 ),
 (
   'Flutter Developer',
   'Multiple Client Engagements',
   'Feb 2022 - May 2023',
-  '["Flutter", "Dart", "Firebase", "Razorpay", "REST APIs"]',
-  '2022-02-01',
-  '2023-05-31',
+  ARRAY['Flutter', 'Dart', 'Firebase', 'Razorpay', 'REST APIs'],
+  'Developed cross-platform mobile applications using Flutter with Firebase backend and payment integration.',
+  2,
   NOW()
-)
-ON CONFLICT (company, title) DO NOTHING;
+);
 
 -- Seed Skills Table
-INSERT INTO skills (category, skill_name, proficiency, created_at) VALUES
-('Languages', 'Java', 'Expert', NOW()),
-('Languages', 'Dart', 'Advanced', NOW()),
-('Languages', 'Kotlin', 'Intermediate', NOW()),
-('Languages', 'SQL', 'Advanced', NOW()),
-('Frameworks', 'Flutter', 'Advanced', NOW()),
-('Frameworks', 'Spring Boot', 'Expert', NOW()),
-('Platforms', 'AWS', 'Advanced', NOW()),
-('Platforms', 'RDS', 'Advanced', NOW()),
-('Platforms', 'AWS Lambda', 'Intermediate', NOW()),
-('Platforms', 'AWS S3', 'Intermediate', NOW()),
-('Tools', 'Git', 'Advanced', NOW()),
-('Tools', 'GitHub', 'Advanced', NOW()),
-('Tools', 'Docker', 'Advanced', NOW()),
-('Tools', 'Maven', 'Advanced', NOW()),
-('Tools', 'Gradle', 'Intermediate', NOW()),
-('Tools', 'Swagger', 'Intermediate', NOW()),
-('AI', 'LangChain', 'Advanced', NOW()),
-('AI', 'LLM APIs', 'Advanced', NOW()),
-('AI', 'Pinecone', 'Intermediate', NOW()),
-('AI', 'RAG Pipelines', 'Advanced', NOW())
-ON CONFLICT (category, skill_name) DO NOTHING;
+INSERT INTO skills (category, skill_name, proficiency_level, display_order, created_at) VALUES
+('Languages', 'Java', 'Expert', 1, NOW()),
+('Languages', 'Dart', 'Advanced', 2, NOW()),
+('Languages', 'Kotlin', 'Intermediate', 3, NOW()),
+('Languages', 'SQL', 'Advanced', 4, NOW()),
+('Frameworks', 'Flutter', 'Advanced', 5, NOW()),
+('Frameworks', 'Spring Boot', 'Expert', 6, NOW()),
+('Platforms', 'AWS', 'Advanced', 7, NOW()),
+('Platforms', 'RDS', 'Advanced', 8, NOW()),
+('Platforms', 'AWS Lambda', 'Intermediate', 9, NOW()),
+('Platforms', 'AWS S3', 'Intermediate', 10, NOW()),
+('Tools', 'Git', 'Advanced', 11, NOW()),
+('Tools', 'GitHub', 'Advanced', 12, NOW()),
+('Tools', 'Docker', 'Advanced', 13, NOW()),
+('Tools', 'Maven', 'Advanced', 14, NOW()),
+('Tools', 'Gradle', 'Intermediate', 15, NOW()),
+('Tools', 'Swagger', 'Intermediate', 16, NOW()),
+('AI', 'LangChain', 'Advanced', 17, NOW()),
+('AI', 'LLM APIs', 'Advanced', 18, NOW()),
+('AI', 'Pinecone', 'Intermediate', 19, NOW()),
+('AI', 'RAG Pipelines', 'Advanced', 20, NOW());

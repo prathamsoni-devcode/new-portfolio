@@ -11,7 +11,7 @@ export async function GET() {
     const { data, error } = await supabase
       .from('experiences')
       .select('*')
-      .order('start_date', { ascending: false })
+      .order('display_order', { ascending: true })
 
     if (error) throw error
 
