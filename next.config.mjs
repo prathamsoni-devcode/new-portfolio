@@ -5,7 +5,6 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
   },
   compress: true,
-  swcMinify: true,
   productionBrowserSourceMaps: false,
   headers: async () => [
     {
