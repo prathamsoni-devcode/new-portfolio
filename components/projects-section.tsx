@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Github, ExternalLink, Loader2 } from "lucide-react"
+import { Github, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import { useProjects } from "@/hooks/useFetchPortfolioData"
 
@@ -73,7 +73,7 @@ export function ProjectsSection() {
 
         {isLoading && (
           <div className="flex justify-center items-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
         )}
 
