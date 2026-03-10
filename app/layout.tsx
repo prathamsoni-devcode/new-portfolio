@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import "./globals.css"
-import { ThemeProvider } from "next-themes"
+import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
   title: "Pratham Soni - Software Engineer & AWS Solutions Architect | Portfolio",
@@ -130,77 +130,6 @@ export default function RootLayout({
         <meta name="geo.placename" content="Pune" />
         <meta name="geo.position" content="18.5204;73.8567" />
         <meta name="ICBM" content="18.5204, 73.8567" />
-
-        {/* Structured Data for SEO */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Pratham Soni",
-              jobTitle: "Software Engineer",
-              description:
-                "Experienced Software Engineer specializing in Java, Spring Boot, Flutter, and AWS cloud solutions",
-              url: "https://prathamsoni.vercel.app",
-              image: "https://prathamsoni.vercel.app/images/pratham-profile.png",
-              email: "pratham1108soni@gmail.com",
-              telephone: "+91-9079843800",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Pune",
-                addressRegion: "Maharashtra",
-                addressCountry: "India",
-              },
-              sameAs: ["https://linkedin.com/in/prathamsoni11", "https://github.com/prathamsoni11"],
-              knowsAbout: [
-                "Java",
-                "Spring Boot",
-                "Flutter",
-                "AWS",
-                "Microservices",
-                "React",
-                "Next.js",
-                "MySQL",
-                "PostgreSQL",
-                "MongoDB",
-                "Docker",
-                "Kubernetes",
-              ],
-              hasCredential: [
-                {
-                  "@type": "EducationalOccupationalCredential",
-                  name: "AWS Certified Solutions Architect - Associate",
-                  credentialCategory: "Professional Certification",
-                  recognizedBy: {
-                    "@type": "Organization",
-                    name: "Amazon Web Services",
-                  },
-                },
-              ],
-              alumniOf: {
-                "@type": "CollegeOrUniversity",
-                name: "Arya College of Engineering",
-                address: {
-                  "@type": "PostalAddress",
-                  addressLocality: "Jaipur",
-                  addressRegion: "Rajasthan",
-                  addressCountry: "India",
-                },
-              },
-              worksFor: {
-                "@type": "Organization",
-                name: "ConsultAdd Inc",
-                address: {
-                  "@type": "PostalAddress",
-                  addressLocality: "Pune",
-                  addressRegion: "Maharashtra",
-                  addressCountry: "India",
-                },
-              },
-            }),
-          }}
-        />
       </head>
       <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>

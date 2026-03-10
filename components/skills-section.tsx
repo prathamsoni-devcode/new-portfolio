@@ -11,8 +11,9 @@ export function SkillsSection() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      (entries) => {
+        const entry = entries[0]
+        if (entry && entry.isIntersecting) {
           setIsVisible(true)
           observer.unobserve(entry.target)
         }
@@ -37,44 +38,37 @@ export function SkillsSection() {
     {
       title: "Programming Languages",
       icon: <Code2 className="h-6 w-6" />,
-      skills: ["Java", "Kotlin", "Dart", "JavaScript", "TypeScript", "Python", "C++"],
+      skills: ["Java", "Dart", "Kotlin", "SQL"],
       color: "from-emerald-500 to-teal-500",
       bgColor: "from-emerald-50 to-teal-50 dark:from-emerald-950/20 dark:to-teal-950/20",
     },
     {
-      title: "Frameworks & Libraries",
+      title: "Frameworks",
       icon: <Layers className="h-6 w-6" />,
-      skills: ["Spring Boot", "Flutter", "React.js", "Node.js", "Next.js"],
+      skills: ["Flutter", "Spring Boot"],
       color: "from-teal-500 to-cyan-500",
       bgColor: "from-teal-50 to-cyan-50 dark:from-teal-950/20 dark:to-cyan-950/20",
     },
     {
-      title: "Databases",
-      icon: <Database className="h-6 w-6" />,
-      skills: ["MySQL", "SQLite", "PostgreSQL", "MongoDB", "Redis"],
+      title: "Platforms & Cloud",
+      icon: <Globe className="h-6 w-6" />,
+      skills: ["AWS", "RDS", "AWS Lambda", "AWS S3"],
       color: "from-slate-500 to-gray-500",
       bgColor: "from-slate-50 to-gray-50 dark:from-slate-950/20 dark:to-gray-950/20",
     },
     {
-      title: "Cloud & DevOps",
-      icon: <Globe className="h-6 w-6" />,
-      skills: ["AWS", "Docker", "Terraform", "CI/CD", "Git"],
+      title: "Tools",
+      icon: <Terminal className="h-6 w-6" />,
+      skills: ["Git", "GitHub", "AWS", "Docker", "Maven", "Gradle", "Swagger"],
       color: "from-gray-500 to-slate-500",
       bgColor: "from-gray-50 to-slate-50 dark:from-gray-950/20 dark:to-slate-950/20",
     },
     {
-      title: "Tools & IDEs",
-      icon: <Terminal className="h-6 w-6" />,
-      skills: ["Firebase", "Jira", "VS Code", "Android Studio", "IntelliJ IDEA"],
+      title: "AI Integration",
+      icon: <Settings className="h-6 w-6" />,
+      skills: ["LangChain", "LLM APIs", "Pinecone", "RAG Pipelines"],
       color: "from-emerald-500 to-green-500",
       bgColor: "from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/20",
-    },
-    {
-      title: "Methodologies",
-      icon: <Settings className="h-6 w-6" />,
-      skills: ["Agile", "MVVM", "MVC", "Microservices", "RESTful APIs"],
-      color: "from-teal-500 to-emerald-500",
-      bgColor: "from-teal-50 to-emerald-50 dark:from-teal-950/20 dark:to-emerald-950/20",
     },
   ]
 

@@ -12,8 +12,9 @@ export function ExperienceSection() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      (entries) => {
+        const entry = entries[0]
+        if (entry && entry.isIntersecting) {
           setIsVisible(true)
           observer.unobserve(entry.target)
         }
@@ -34,25 +35,19 @@ export function ExperienceSection() {
     }
   }, [])
 
-  // Only showing last 3 experiences
+  // Showing last 3 experiences from resume
   const experiences = [
     {
-      title: "Software Engineer L1",
-      company: "ConsultAdd Inc",
+      title: "Software Engineer",
+      company: "Consultadd",
       period: "February 2024 - Present",
-      technologies: ["Java", "Spring Boot", "AWS", "Microservices", "Next.js", "Flutter"],
+      technologies: ["Spring Boot", "LangChain", "OpenRouter", "Pinecone", "AWS", "Docker", "JWT"],
     },
     {
       title: "Flutter Developer",
-      company: "The Speed Turtle",
-      period: "March 2023 - May 2023",
-      technologies: ["Flutter", "Dart", "Firebase", "RESTful APIs"],
-    },
-    {
-      title: "Flutter Web Developer",
-      company: "The Social Chutney",
-      period: "December 2022 - March 2023",
-      technologies: ["Flutter Web", "Figma", "Hostinger", "Responsive Design"],
+      company: "Multiple Client Engagements",
+      period: "February 2022 - May 2023",
+      technologies: ["Flutter", "Dart", "Firebase", "Razorpay", "REST APIs"],
     },
   ]
 
