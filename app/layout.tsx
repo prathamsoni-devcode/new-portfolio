@@ -1,10 +1,7 @@
 import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { ThemeProvider } from "next-themes"
-
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Pratham Soni - Software Engineer & AWS Solutions Architect | Portfolio",
@@ -84,15 +81,9 @@ export const metadata: Metadata = {
   },
   category: "technology",
   classification: "Portfolio Website",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   generator: "Next.js",
   applicationName: "Pratham Soni Portfolio",
   referrer: "origin-when-cross-origin",
-  colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#10b981" },
-    { media: "(prefers-color-scheme: dark)", color: "#34d399" },
-  ],
   manifest: "/manifest.json",
   icons: {
     icon: [
@@ -112,6 +103,17 @@ export const metadata: Metadata = {
     "msapplication-TileColor": "#10b981",
     "msapplication-config": "/browserconfig.xml",
   },
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#10b981" },
+    { media: "(prefers-color-scheme: dark)", color: "#34d399" },
+  ],
 }
 
 export default function RootLayout({
@@ -200,7 +202,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className}`}>
+      <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
