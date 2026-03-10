@@ -1,10 +1,7 @@
 import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Pratham Soni - Software Engineer & AWS Solutions Architect | Portfolio",
@@ -84,15 +81,9 @@ export const metadata: Metadata = {
   },
   category: "technology",
   classification: "Portfolio Website",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   generator: "Next.js",
   applicationName: "Pratham Soni Portfolio",
   referrer: "origin-when-cross-origin",
-  colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#10b981" },
-    { media: "(prefers-color-scheme: dark)", color: "#34d399" },
-  ],
   manifest: "/manifest.json",
   icons: {
     icon: [
@@ -114,6 +105,17 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#10b981" },
+    { media: "(prefers-color-scheme: dark)", color: "#34d399" },
+  ],
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -129,7 +131,7 @@ export default function RootLayout({
         <meta name="geo.position" content="18.5204;73.8567" />
         <meta name="ICBM" content="18.5204, 73.8567" />
       </head>
-      <body className={`${inter.className}`}>
+      <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
