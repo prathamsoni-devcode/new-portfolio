@@ -132,7 +132,7 @@ export default function RootLayout({
         <meta name="ICBM" content="18.5204, 73.8567" />
       </head>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <ThemeProvider defaultTheme="light" enableSystem>
           {children}
         </ThemeProvider>
       </body>
