@@ -69,7 +69,7 @@ Complete code review, optimization, and dependency update performed on Pratham S
 ### 4. Configuration Optimizations
 
 #### Next.js Config (`next.config.mjs`)
-```typescript
+\`\`\`typescript
 // Added production optimizations
 ✅ Image optimization enabled (disabled unoptimized)
 ✅ WebP and AVIF format support
@@ -77,17 +77,17 @@ Complete code review, optimization, and dependency update performed on Pratham S
 ✅ Production browser source maps disabled
 ✅ Cache headers configured for immutable assets
 ✅ Compression enabled
-```
+\`\`\`
 
 #### TypeScript Config (`tsconfig.json`)
-```json
+\`\`\`json
 // Enhanced strictness and compatibility
 ✅ Target upgraded to ES2020
 ✅ Added forceConsistentCasingInFileNames
 ✅ Added noUncheckedIndexedAccess
 ✅ Added noImplicitOverride
 ✅ Improved module resolution
-```
+\`\`\`
 
 #### PostCSS Config
 - ✅ Kept minimal (tailwindcss only) - already optimized
@@ -156,11 +156,11 @@ Complete code review, optimization, and dependency update performed on Pratham S
 ## Deployment Readiness
 
 ### Production Build
-```bash
+\`\`\`bash
 npm install
 npm run build
 npm start
-```
+\`\`\`
 
 ### Environment Variables
 Required for Supabase integration:

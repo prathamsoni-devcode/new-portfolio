@@ -20,7 +20,7 @@ export function ProjectsSection() {
       title: "Uber Spring Boot App",
       description:
         "Designed a ride-booking backend system implementing strategy patterns for driver allocation and fare calculation. Features geospatial queries with PostGIS for proximity-based driver matching and JWT-based authentication.",
-      image: "/placeholder.svg?height=300&width=600",
+      image_url: "/placeholder.svg?height=300&width=600",
       technologies: ["Spring Boot", "Postgres", "PostGIS", "JWT"],
       github_url: "https://github.com/prathamsoni11",
       live_url: "",
