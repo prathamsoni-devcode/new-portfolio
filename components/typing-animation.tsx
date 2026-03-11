@@ -21,9 +21,12 @@ export function TypingAnimation({
 
   useEffect(() => {
     let timeout: NodeJS.Timeout
+    const currentText = texts[currentIndex]
+
+    if (!currentText) return
 
     if (isTyping) {
-      if (displayText === texts[currentIndex]) {
+      if (displayText === currentText) {
         // Finished typing current text, wait before deleting
         timeout = setTimeout(() => {
           setIsTyping(false)
@@ -31,7 +34,7 @@ export function TypingAnimation({
       } else {
         // Continue typing
         timeout = setTimeout(() => {
-          setDisplayText(texts[currentIndex].substring(0, displayText.length + 1))
+          setDisplayText(currentText.substring(0, displayText.length + 1))
         }, typingSpeed)
       }
     } else {
