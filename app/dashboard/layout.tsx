@@ -62,12 +62,8 @@ export default function DashboardLayout({
     )
   }
 
-  if (!user || !profile) {
-    return null
-  }
-
-  const isAdmin = profile.role === 'admin'
-  const canEdit = profile.role === 'admin' || profile.role === 'editor'
+  const isAdmin = profile?.role === 'admin'
+  const canEdit = profile?.role === 'admin' || profile?.role === 'editor'
 
   return (
     <div className="min-h-screen bg-background">
@@ -113,9 +109,9 @@ export default function DashboardLayout({
 
           <div className="flex items-center gap-4">
             <div className="hidden sm:flex items-center gap-2 text-sm">
-              <span>{profile.full_name}</span>
+              <span>{profile?.full_name || 'User'}</span>
               <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">
-                {profile.role.toUpperCase()}
+                {(profile?.role || 'viewer').toUpperCase()}
               </span>
             </div>
             <Button variant="ghost" size="sm" onClick={handleLogout}>
@@ -167,7 +163,7 @@ export default function DashboardLayout({
       </header>
 
       {/* Main Content */}
-      <main className="container py-8">{children}</main>
+      <main className="container py-8">{!loading && children}</main>
     </div>
   )
 }

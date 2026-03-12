@@ -15,35 +15,61 @@ export default function DashboardPage() {
     skills: 0,
     messages: 0,
   })
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const loadData = async () => {
-      const user = await getCurrentUser()
-      if (user) {
-        const profileData = await getUserProfile(user.id)
-        setProfile(profileData)
+      try {
+        const user = await getCurrentUser()
+        if (user) {
+          const profileData = await getUserProfile(user.id)
+          setProfile(profileData || {
+            full_name: user.email?.split('@')[0] || 'User',
+            role: 'viewer',
+          })
 
-        // Load statistics
-        const projectRes = await fetch('/api/projects')
-        const projectData = await projectRes.json()
+          // Load statistics
+          try {
+            const projectRes = await fetch('/api/projects')
+            const projectData = await projectRes.json()
 
-        const expRes = await fetch('/api/experiences')
-        const expData = await expRes.json()
+            const expRes = await fetch('/api/experiences')
+            const expData = await expRes.json()
 
-        const skillRes = await fetch('/api/skills')
-        const skillData = await skillRes.json()
+            const skillRes = await fetch('/api/skills')
+            const skillData = await skillRes.json()
 
-        setStats({
-          projects: Array.isArray(projectData) ? projectData.length : 0,
-          experiences: Array.isArray(expData) ? expData.length : 0,
-          skills: Array.isArray(skillData) ? skillData.length : 0,
-          messages: 0,
-        })
+            setStats({
+              projects: Array.isArray(projectData) ? projectData.length : 0,
+              experiences: Array.isArray(expData) ? expData.length : 0,
+              skills: Array.isArray(skillData) ? skillData.length : 0,
+              messages: 0,
+            })
+          } catch (error) {
+            console.error('Error loading stats:', error)
+          }
+        }
+      } catch (error) {
+        console.error('Error loading profile:', error)
+        setProfile({ full_name: 'User', role: 'viewer' })
+      } finally {
+        setLoading(false)
       }
     }
 
     loadData()
   }, [])
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading dashboard...</p>
+        </div>
+      </div>
+    )
+  }
 
   const isAdmin = profile?.role === 'admin'
   const canEdit = profile?.role === 'admin' || profile?.role === 'editor'
@@ -52,7 +78,7 @@ export default function DashboardPage() {
     <div className="space-y-8">
       {/* Welcome Section */}
       <div className="space-y-2">
-        <h1 className="text-4xl font-bold">Welcome, {profile?.full_name}!</h1>
+        <h1 className="text-4xl font-bold">Welcome, {profile?.full_name || 'User'}!</h1>
         <p className="text-muted-foreground">Manage your portfolio and profile content</p>
       </div>
 

@@ -31,7 +31,15 @@ export interface ProfileData {
 // Get current user's profile data
 export async function getUserProfile(userId: string): Promise<ProfileData | null> {
   try {
-    // First try to get from profiles table
+    // Get the current user's session
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    
+    if (authError || !user) {
+      console.error('Auth error:', authError)
+      return null
+    }
+
+    // Try to get from profiles table first
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
@@ -42,20 +50,19 @@ export async function getUserProfile(userId: string): Promise<ProfileData | null
       return data as ProfileData
     }
 
-    // If not found, get from auth metadata
-    const { data: authData } = await supabase.auth.admin.getUserById(userId)
-    if (authData?.user) {
+    // If not found in table, create from auth data
+    if (user) {
       return {
-        id: authData.user.id,
-        email: authData.user.email || '',
-        full_name: authData.user.user_metadata?.full_name || null,
-        role: authData.user.user_metadata?.role || 'viewer',
-        profile_picture_url: authData.user.user_metadata?.profile_picture_url || null,
-        resume_url: authData.user.user_metadata?.resume_url || null,
-        bio: authData.user.user_metadata?.bio || null,
-        is_active: !authData.user.banned_until,
-        created_at: authData.user.created_at,
-        updated_at: authData.user.updated_at,
+        id: user.id,
+        email: user.email || '',
+        full_name: user.user_metadata?.full_name || 'User',
+        role: (user.user_metadata?.role as UserRole) || 'viewer',
+        profile_picture_url: user.user_metadata?.profile_picture_url || null,
+        resume_url: user.user_metadata?.resume_url || null,
+        bio: user.user_metadata?.bio || null,
+        is_active: true,
+        created_at: user.created_at || new Date().toISOString(),
+        updated_at: user.updated_at || new Date().toISOString(),
       }
     }
 
