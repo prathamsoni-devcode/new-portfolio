@@ -1,27 +1,30 @@
 # Pratham Soni - Portfolio Website
 
-A modern, fully responsive portfolio website built with Next.js 15, React 19, Tailwind CSS, and Supabase.
+A modern, fully responsive portfolio website built with Next.js 15, React 19, Tailwind CSS, and Supabase with role-based admin dashboard.
 
 ## Features
 
 - **Modern UI/UX**: Smooth animations, transitions, and interactive elements
-- **Dark & Light Mode**: Mint & Graphite color theme
+- **Dark & Light Mode**: Custom theme system with Mint & Graphite color scheme
 - **Fully Responsive**: Optimized for all screen sizes (mobile, tablet, desktop)
 - **Dynamic Content**: Projects, experiences, and skills managed via Supabase
+- **Admin Dashboard**: Role-based access control with email/password authentication
+- **File Storage**: Resume and profile picture uploads to Supabase Storage
 - **Contact Form**: Integrated contact messaging with Supabase backend
 - **SEO Optimized**: Comprehensive metadata and structured data
 - **Performance**: Optimized build configuration with image compression and caching
 
 ## Tech Stack
 
-- **Framework**: Next.js 15.2.9
-- **Runtime**: React 19.1.0
-- **Styling**: Tailwind CSS 3.4.17
-- **UI Components**: shadcn/ui
-- **Database**: Supabase
-- **Icons**: lucide-react
-- **Data Fetching**: SWR
-- **Theme Management**: next-themes
+- **Framework**: Next.js 15.15.1 (Latest)
+- **Runtime**: React 19.2.4
+- **Styling**: Tailwind CSS 3.4.20
+- **UI Components**: shadcn/ui (minimal, only used components)
+- **Database**: Supabase with RLS policies
+- **Icons**: lucide-react 0.487.0
+- **Authentication**: Supabase Auth with custom role system
+- **Storage**: Supabase Storage for file uploads
+- **TypeScript**: 5.10.1
 
 ## Getting Started
 
