@@ -6,44 +6,12 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
-    const { searchParams } = new URL(request.url)
-    const category = searchParams.get('category') // 'all', 'backend', 'frontend', 'fullstack'
-
-    let query = supabase
+    const { data, error } = await supabase
       .from('projects')
-      .select(`
-        id,
-        title,
-        description,
-        long_description,
-        image_url,
-        github_url,
-        live_url,
-        is_featured,
-        start_date,
-        end_date,
-        display_order,
-        project_categories (name),
-        project_technologies (technology_name)
-      `)
+      .select('*')
       .order('display_order', { ascending: true })
-
-    // Filter by category if specified
-    if (category && category !== 'all') {
-      const { data: categoryData } = await supabase
-        .from('project_categories')
-        .select('id')
-        .eq('name', category)
-        .single()
-
-      if (categoryData) {
-        query = query.eq('category_id', categoryData.id)
-      }
-    }
-
-    const { data, error } = await query
 
     if (error) {
       console.error('Error fetching projects:', error)

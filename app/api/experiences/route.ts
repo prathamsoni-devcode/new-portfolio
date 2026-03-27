@@ -10,22 +10,7 @@ export async function GET() {
   try {
     const { data, error } = await supabase
       .from('experiences')
-      .select(`
-        id,
-        job_title,
-        company_name,
-        company_url,
-        description,
-        start_date,
-        end_date,
-        is_current,
-        display_order,
-        experience_responsibilities (
-          id,
-          responsibility,
-          display_order
-        )
-      `)
+      .select('*')
       .order('display_order', { ascending: true })
 
     if (error) {
