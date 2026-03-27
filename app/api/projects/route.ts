@@ -6,42 +6,53 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-// Fallback data when table doesn't exist
-const fallbackProjects = [
-  {
-    id: 1,
-    title: 'Uber Spring Boot App',
-    description: 'Designed a ride-booking backend system implementing strategy patterns for driver allocation and fare calculation. Features geospatial queries with PostGIS for proximity-based driver matching and JWT-based authentication.',
-    image_url: '/images/pratham-profile.jpg',
-    technologies: ['Spring Boot', 'Postgres', 'PostGIS', 'JWT'],
-    github_url: 'https://github.com/prathamsoni11',
-    live_url: '',
-    created_at: new Date().toISOString(),
-  },
-]
-
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .order('created_at', { ascending: false })
+    const { searchParams } = new URL(request.url)
+    const category = searchParams.get('category') // 'all', 'backend', 'frontend', 'fullstack'
 
-    // If table doesn't exist, return fallback data
-    if (error?.code === 'PGRST116' || error?.message?.includes('relation "public.projects" does not exist')) {
-      console.log('Projects table not found, using fallback data')
-      return NextResponse.json(fallbackProjects)
+    let query = supabase
+      .from('projects')
+      .select(`
+        id,
+        title,
+        description,
+        long_description,
+        image_url,
+        github_url,
+        live_url,
+        is_featured,
+        start_date,
+        end_date,
+        display_order,
+        project_categories (name),
+        project_technologies (technology_name)
+      `)
+      .order('display_order', { ascending: true })
+
+    // Filter by category if specified
+    if (category && category !== 'all') {
+      const { data: categoryData } = await supabase
+        .from('project_categories')
+        .select('id')
+        .eq('name', category)
+        .single()
+
+      if (categoryData) {
+        query = query.eq('category_id', categoryData.id)
+      }
     }
+
+    const { data, error } = await query
 
     if (error) {
-      console.error('Supabase error:', error)
-      return NextResponse.json(fallbackProjects)
+      console.error('Error fetching projects:', error)
+      return NextResponse.json({ error: 'Failed to fetch projects' }, { status: 500 })
     }
 
-    return NextResponse.json(data || fallbackProjects)
+    return NextResponse.json(data || [])
   } catch (error) {
-    console.error('Error fetching projects:', error)
-    // Return fallback data on any error instead of 500
-    return NextResponse.json(fallbackProjects)
+    console.error('Error in projects GET:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

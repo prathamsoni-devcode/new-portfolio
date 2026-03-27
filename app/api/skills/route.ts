@@ -6,56 +6,54 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-// Fallback data when table doesn't exist
-const fallbackSkills = [
-  {
-    id: 1,
-    name: 'JavaScript',
-    category: 'Programming',
-    proficiency: 'Expert',
-    display_order: 1,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: 2,
-    name: 'React',
-    category: 'Frontend',
-    proficiency: 'Expert',
-    display_order: 2,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: 3,
-    name: 'TypeScript',
-    category: 'Programming',
-    proficiency: 'Advanced',
-    display_order: 3,
-    created_at: new Date().toISOString(),
-  },
-]
-
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const { data, error } = await supabase
-      .from('skills')
-      .select('*')
-      .order('category', { ascending: true })
+    const { searchParams } = new URL(request.url)
+    const featured = searchParams.get('featured') // 'true' for featured only
 
-    // If table doesn't exist, return fallback data
-    if (error?.code === 'PGRST116' || error?.message?.includes('relation "public.skills" does not exist')) {
-      console.log('Skills table not found, using fallback data')
-      return NextResponse.json(fallbackSkills)
-    }
+    let query = supabase
+      .from('skill_categories')
+      .select(`
+        id,
+        name,
+        description,
+        display_order,
+        skills (
+          id,
+          name,
+          proficiency_level,
+          is_featured,
+          display_order,
+          skill_sub_skills (
+            id,
+            name,
+            description,
+            display_order
+          )
+        )
+      `)
+      .order('display_order', { ascending: true })
+
+    const { data: categories, error } = await query
 
     if (error) {
-      console.error('Supabase error:', error)
-      return NextResponse.json(fallbackSkills)
+      console.error('Error fetching skills:', error)
+      return NextResponse.json({ error: 'Failed to fetch skills' }, { status: 500 })
     }
 
-    return NextResponse.json(data || fallbackSkills)
+    // Filter featured skills if requested
+    if (featured === 'true') {
+      const filteredCategories = categories?.map(cat => ({
+        ...cat,
+        skills: cat.skills?.filter(s => s.is_featured) || [],
+      })).filter(cat => cat.skills.length > 0)
+
+      return NextResponse.json(filteredCategories || [])
+    }
+
+    return NextResponse.json(categories || [])
   } catch (error) {
-    console.error('Error fetching skills:', error)
-    // Return fallback data on any error instead of 500
-    return NextResponse.json(fallbackSkills)
+    console.error('Error in skills GET:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
