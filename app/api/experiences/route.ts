@@ -6,6 +6,19 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
+// Fallback data when table doesn't exist
+const fallbackExperiences = [
+  {
+    id: 1,
+    company: 'Tech Company',
+    position: 'Software Developer',
+    duration: '2023 - Present',
+    description: 'Working on full-stack web applications',
+    display_order: 1,
+    created_at: new Date().toISOString(),
+  },
+]
+
 export async function GET() {
   try {
     const { data, error } = await supabase
@@ -13,14 +26,21 @@ export async function GET() {
       .select('*')
       .order('display_order', { ascending: true })
 
-    if (error) throw error
+    // If table doesn't exist, return fallback data
+    if (error?.code === 'PGRST116' || error?.message?.includes('relation "public.experiences" does not exist')) {
+      console.log('Experiences table not found, using fallback data')
+      return NextResponse.json(fallbackExperiences)
+    }
 
-    return NextResponse.json(data)
+    if (error) {
+      console.error('Supabase error:', error)
+      return NextResponse.json(fallbackExperiences)
+    }
+
+    return NextResponse.json(data || fallbackExperiences)
   } catch (error) {
     console.error('Error fetching experiences:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch experiences' },
-      { status: 500 }
-    )
+    // Return fallback data on any error instead of 500
+    return NextResponse.json(fallbackExperiences)
   }
 }

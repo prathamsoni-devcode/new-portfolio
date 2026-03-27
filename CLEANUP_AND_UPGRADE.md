@@ -66,10 +66,10 @@
 
 ## Environment Variables Required
 Add to your `.env.local`:
-```
+\`\`\`
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-```
+\`\`\`
 
 ## Migration Steps for Users
 1. Run `npm install` to update dependencies with new lock file
