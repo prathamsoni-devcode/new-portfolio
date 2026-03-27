@@ -1,203 +1,186 @@
--- Step 5: Insert Pratham Soni's data from resume
-
--- Insert Contact Info
-INSERT INTO contact_info (email, phone, location, linkedin_url, github_url, twitter_url, portfolio_url)
+-- Insert Contact Information
+INSERT INTO contact_info (email, phone, location, github_url, linkedin_url, portfolio_url)
 VALUES (
   'pratham1108soni@gmail.com',
   '+91-9079843800',
   'Pune, India',
-  'https://www.linkedin.com/in/pratham1108soni',
   'https://github.com/prathamsoni-devcode',
-  'https://twitter.com',
+  'https://linkedin.com/in/pratham1108soni',
   'https://prathamsoni.vercel.app'
 );
 
 -- Insert Skill Categories
-INSERT INTO skill_categories (name, description, display_order) VALUES
-('Languages', 'Programming Languages', 1),
-('Frameworks & Libraries', 'Backend and Frontend Frameworks', 2),
-('Cloud & Databases', 'Cloud Platforms and Database Technologies', 3),
-('Tools & Technologies', 'Development Tools and Platforms', 4),
-('AI & Machine Learning', 'AI/ML Libraries and Concepts', 5);
+INSERT INTO skill_categories (name, description, display_order)
+VALUES 
+  ('Programming Languages', 'Core programming languages', 1),
+  ('Frameworks & Libraries', 'Web and mobile frameworks', 2),
+  ('Cloud & Deployment', 'Cloud platforms and DevOps', 3),
+  ('Databases', 'Database systems and tools', 4),
+  ('AI & ML', 'Artificial Intelligence and Machine Learning', 5);
 
--- Insert Skills with Sub-skills
--- Languages Category
+-- Programming Languages
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Java', 'Expert', TRUE, 1 FROM skill_categories WHERE name = 'Languages'
-RETURNING id INTO TEMP java_id;
+SELECT id, 'Java', 'Expert', true, 1 FROM skill_categories WHERE name = 'Programming Languages';
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'Object-Oriented Programming', 'OOP concepts and design patterns', 1
-FROM skills WHERE name = 'Java' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Languages');
+SELECT id, 'Spring Boot', 'Spring Boot backend development', 1 
+FROM skills WHERE name = 'Java' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Programming Languages');
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'Collections Framework', 'Java Collections API', 2
-FROM skills WHERE name = 'Java' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Languages');
-
-INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Kotlin', 'Advanced', TRUE, 2 FROM skill_categories WHERE name = 'Languages';
-
-INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Dart', 'Advanced', FALSE, 3 FROM skill_categories WHERE name = 'Languages';
-
-INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'SQL', 'Expert', TRUE, 4 FROM skill_categories WHERE name = 'Languages';
+SELECT id, 'Spring Security', 'Authentication and authorization', 2 
+FROM skills WHERE name = 'Java' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Programming Languages');
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'Query Optimization', 'Indexing and query performance', 1
-FROM skills WHERE name = 'SQL' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Languages');
+SELECT id, 'Microservices', 'Microservices architecture', 3 
+FROM skills WHERE name = 'Java' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Programming Languages');
 
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'TypeScript', 'Advanced', TRUE, 5 FROM skill_categories WHERE name = 'Languages';
+SELECT id, 'Kotlin', 'Advanced', false, 2 FROM skill_categories WHERE name = 'Programming Languages';
 
--- Frameworks & Libraries Category
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Spring Boot', 'Expert', TRUE, 1 FROM skill_categories WHERE name = 'Frameworks & Libraries'
-RETURNING id INTO TEMP springboot_id;
+SELECT id, 'Dart', 'Advanced', false, 3 FROM skill_categories WHERE name = 'Programming Languages';
+
+INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
+SELECT id, 'TypeScript', 'Expert', true, 4 FROM skill_categories WHERE name = 'Programming Languages';
+
+INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
+SELECT id, 'SQL', 'Advanced', false, 5 FROM skill_categories WHERE name = 'Programming Languages';
+
+-- Frameworks & Libraries
+INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
+SELECT id, 'Spring Boot', 'Expert', true, 1 FROM skill_categories WHERE name = 'Frameworks & Libraries';
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'Spring Security', 'Authentication and authorization', 1
+SELECT id, 'REST APIs', 'RESTful API design and implementation', 1 
 FROM skills WHERE name = 'Spring Boot' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Frameworks & Libraries');
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'REST APIs', 'RESTful web services', 2
-FROM skills WHERE name = 'Spring Boot' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Frameworks & Libraries');
-
-INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'Microservices', 'Microservices architecture', 3
-FROM skills WHERE name = 'Spring Boot' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Frameworks & Libraries');
-
-INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'Spring Data JPA', 'ORM and database persistence', 4
+SELECT id, 'JPA/Hibernate', 'ORM and database mapping', 2 
 FROM skills WHERE name = 'Spring Boot' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Frameworks & Libraries');
 
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Flutter', 'Advanced', TRUE, 2 FROM skill_categories WHERE name = 'Frameworks & Libraries';
+SELECT id, 'Flutter', 'Advanced', true, 2 FROM skill_categories WHERE name = 'Frameworks & Libraries';
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'Flutter Web', 'Web applications with Flutter', 1
+SELECT id, 'Mobile App Development', 'Cross-platform mobile development', 1 
 FROM skills WHERE name = 'Flutter' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Frameworks & Libraries');
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'Mobile App Development', 'iOS and Android apps', 2
+SELECT id, 'Flutter Web', 'Web applications with Flutter', 2 
 FROM skills WHERE name = 'Flutter' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Frameworks & Libraries');
 
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Next.js', 'Advanced', TRUE, 3 FROM skill_categories WHERE name = 'Frameworks & Libraries';
+SELECT id, 'Next.js', 'Expert', true, 3 FROM skill_categories WHERE name = 'Frameworks & Libraries';
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'Server Components', 'React Server Components', 1
+SELECT id, 'Server Components', 'React Server Components and SSR', 1 
 FROM skills WHERE name = 'Next.js' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Frameworks & Libraries');
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'API Routes', 'Backend routing with Next.js', 2
+SELECT id, 'API Routes', 'Backend API development in Next.js', 2 
 FROM skills WHERE name = 'Next.js' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Frameworks & Libraries');
 
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'React', 'Advanced', TRUE, 4 FROM skill_categories WHERE name = 'Frameworks & Libraries';
+SELECT id, 'React', 'Expert', true, 4 FROM skill_categories WHERE name = 'Frameworks & Libraries';
 
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'LangChain', 'Intermediate', FALSE, 5 FROM skill_categories WHERE name = 'Frameworks & Libraries';
+SELECT id, 'LangChain', 'Advanced', false, 5 FROM skill_categories WHERE name = 'Frameworks & Libraries';
 
--- Cloud & Databases Category
+-- Cloud & Deployment
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'PostgreSQL', 'Expert', TRUE, 1 FROM skill_categories WHERE name = 'Cloud & Databases';
+SELECT id, 'AWS', 'Advanced', true, 1 FROM skill_categories WHERE name = 'Cloud & Deployment';
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'PostGIS', 'Geospatial extension for PostgreSQL', 1
-FROM skills WHERE name = 'PostgreSQL' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Cloud & Databases');
-
-INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Supabase', 'Advanced', TRUE, 2 FROM skill_categories WHERE name = 'Cloud & Databases';
-
-INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Firebase', 'Advanced', TRUE, 3 FROM skill_categories WHERE name = 'Cloud & Databases';
-
-INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'AWS', 'Advanced', TRUE, 4 FROM skill_categories WHERE name = 'Cloud & Databases';
+SELECT id, 'EC2', 'Elastic Compute Cloud', 1 
+FROM skills WHERE name = 'AWS' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Cloud & Deployment');
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'EC2', 'Elastic Compute Cloud', 1
-FROM skills WHERE name = 'AWS' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Cloud & Databases');
+SELECT id, 'RDS', 'Relational Database Service', 2 
+FROM skills WHERE name = 'AWS' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Cloud & Deployment');
 
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Google Cloud', 'Intermediate', FALSE, 5 FROM skill_categories WHERE name = 'Cloud & Databases';
-
--- Tools & Technologies Category
-INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Git & GitHub', 'Expert', TRUE, 1 FROM skill_categories WHERE name = 'Tools & Technologies';
+SELECT id, 'Google Cloud', 'Advanced', false, 2 FROM skill_categories WHERE name = 'Cloud & Deployment';
 
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Docker', 'Advanced', TRUE, 2 FROM skill_categories WHERE name = 'Tools & Technologies';
+SELECT id, 'Firebase', 'Advanced', true, 3 FROM skill_categories WHERE name = 'Cloud & Deployment';
 
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'Linux', 'Advanced', TRUE, 3 FROM skill_categories WHERE name = 'Tools & Technologies';
+SELECT id, 'Supabase', 'Advanced', true, 4 FROM skill_categories WHERE name = 'Cloud & Deployment';
 
--- AI & Machine Learning Category
+-- Databases
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'RAG (Retrieval Augmented Generation)', 'Intermediate', FALSE, 1 FROM skill_categories WHERE name = 'AI & Machine Learning';
+SELECT id, 'PostgreSQL', 'Advanced', true, 1 FROM skill_categories WHERE name = 'Databases';
 
 INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
-SELECT id, 'Vector Embeddings', 'Text embeddings for RAG', 1
-FROM skills WHERE name = 'RAG (Retrieval Augmented Generation)' AND category_id = (SELECT id FROM skill_categories WHERE name = 'AI & Machine Learning');
+SELECT id, 'PostGIS', 'Geospatial extensions', 1 
+FROM skills WHERE name = 'PostgreSQL' AND category_id = (SELECT id FROM skill_categories WHERE name = 'Databases');
 
 INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
-SELECT id, 'LLM APIs', 'Large Language Model APIs', 'Intermediate', FALSE, 2 FROM skill_categories WHERE name = 'AI & Machine Learning';
+SELECT id, 'MongoDB', 'Advanced', false, 2 FROM skill_categories WHERE name = 'Databases';
 
--- Insert Project Categories
-INSERT INTO project_categories (name, description) VALUES
-('Backend Development', 'Server-side and backend projects'),
-('Frontend Development', 'Client-side and frontend projects'),
-('Full Stack', 'Complete full-stack applications'),
-('Open Source', 'Open source contributions');
+INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
+SELECT id, 'Firebase Firestore', 'Advanced', false, 3 FROM skill_categories WHERE name = 'Databases';
 
--- Insert Projects
-INSERT INTO projects (category_id, title, description, long_description, github_url, is_featured, display_order)
+-- AI & ML
+INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
+SELECT id, 'RAG Systems', 'Advanced', true, 1 FROM skill_categories WHERE name = 'AI & ML';
+
+INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
+SELECT id, 'Vector Embeddings', 'Creating and using vector embeddings', 1 
+FROM skills WHERE name = 'RAG Systems' AND category_id = (SELECT id FROM skill_categories WHERE name = 'AI & ML');
+
+INSERT INTO skill_sub_skills (skill_id, name, description, display_order)
+SELECT id, 'Vector Databases', 'Pinecone, Weaviate, Chroma', 2 
+FROM skills WHERE name = 'RAG Systems' AND category_id = (SELECT id FROM skill_categories WHERE name = 'AI & ML');
+
+INSERT INTO skills (category_id, name, proficiency_level, is_featured, display_order)
+SELECT id, 'LLM Integration', 'Working with OpenAI, Anthropic, Google APIs', 'Advanced', true, 2 FROM skill_categories WHERE name = 'AI & ML';
+
+-- Project Categories
+INSERT INTO project_categories (name, description, display_order)
+VALUES 
+  ('Backend Development', 'Server-side and backend projects', 1),
+  ('Frontend Development', 'Client-side and UI projects', 2),
+  ('Full Stack', 'Complete end-to-end projects', 3);
+
+-- Projects
+INSERT INTO projects (category_id, title, description, long_description, github_url, is_featured, start_date, end_date, display_order)
 SELECT 
-  pc.id,
-  'Uber Spring Boot App',
-  'A ride-booking backend system implementing strategy patterns for driver allocation and fare calculation.',
-  'Designed a comprehensive ride-booking backend system implementing strategy patterns for driver allocation and fare calculation. Features geospatial queries with PostGIS for proximity-based driver matching and JWT-based authentication with Spring Security.',
-  'https://github.com/prathamsoni-devcode',
-  TRUE,
+  id,
+  'Uber Spring Boot Backend',
+  'Ride-booking system with geospatial queries',
+  'Designed and implemented a ride-booking backend system using Spring Boot with Strategy Pattern for driver allocation and fare calculation. Features geospatial queries using PostGIS for proximity-based driver matching. Includes JWT-based authentication and comprehensive REST API endpoints.',
+  'https://github.com/prathamsoni-devcode/uber-backend',
+  true,
+  '2023-06-01',
+  '2023-12-31',
   1
-FROM project_categories pc WHERE pc.name = 'Backend Development';
+FROM project_categories WHERE name = 'Backend Development';
 
--- Insert Project Technologies for Uber project
-INSERT INTO project_technologies (project_id, technology_name, display_order)
-SELECT p.id, 'Spring Boot', 1 FROM projects p WHERE p.title = 'Uber Spring Boot App';
+-- Project Technologies
+INSERT INTO project_technologies (project_id, skill_id)
+SELECT p.id, s.id FROM projects p, skills s 
+WHERE p.title = 'Uber Spring Boot Backend' 
+AND s.name IN ('Java', 'Spring Boot', 'PostgreSQL')
+LIMIT 3;
 
-INSERT INTO project_technologies (project_id, technology_name, display_order)
-SELECT p.id, 'Spring Security', 2 FROM projects p WHERE p.title = 'Uber Spring Boot App';
-
-INSERT INTO project_technologies (project_id, technology_name, display_order)
-SELECT p.id, 'PostgreSQL', 3 FROM projects p WHERE p.title = 'Uber Spring Boot App';
-
-INSERT INTO project_technologies (project_id, technology_name, display_order)
-SELECT p.id, 'PostGIS', 4 FROM projects p WHERE p.title = 'Uber Spring Boot App';
-
-INSERT INTO project_technologies (project_id, technology_name, display_order)
-SELECT p.id, 'JWT', 5 FROM projects p WHERE p.title = 'Uber Spring Boot App';
-
--- Insert Education
-INSERT INTO education (school_name, degree, field_of_study, start_date, end_date, cgpa, description, display_order)
+-- Experiences
+INSERT INTO experiences (job_title, company_name, company_url, description, start_date, is_current, display_order)
 VALUES (
-  'Arya College of Engineering',
-  'B.Tech',
-  'Computer Science and Engineering',
-  '2020',
-  '2024',
-  8.3,
-  'Graduated with CGPA 8.3 in Computer Science and Engineering',
+  'Software Engineer',
+  'ConsultAdd',
+  'https://consultadd.com',
+  'Building AI-powered solutions and full-stack applications',
+  '2024-02-01',
+  true,
   1
 );
 
--- Insert Certifications
-INSERT INTO certifications (name, issuer, issue_date, credential_url, display_order)
-VALUES (
-  'AWS Solutions Architect Associate',
-  'Amazon Web Services',
-  '2024',
-  'https://aws.amazon.com',
-  1
-);
+INSERT INTO experience_responsibilities (experience_id, responsibility, display_order)
+SELECT id, 'Developed LLM-powered RAG systems with vector embeddings', 1 FROM experiences WHERE job_title = 'Software Engineer';
+
+INSERT INTO experience_responsibilities (experience_id, responsibility, display_order)
+SELECT id, 'Built full-stack web applications with Next.js and Spring Boot', 2 FROM experiences WHERE job_title = 'Software Engineer';
+
+INSERT INTO experience_responsibilities (experience_id, responsibility, display_order)
+SELECT id, 'Designed and optimized database schemas for scalability', 3 FROM experiences WHERE job_title = 'Software Engineer';
