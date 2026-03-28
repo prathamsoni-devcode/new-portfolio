@@ -10,7 +10,11 @@ export async function GET() {
   try {
     const { data, error } = await supabase
       .from('projects')
-      .select('*')
+      .select(`
+        *,
+        project_categories(name),
+        project_technologies(skills(name))
+      `)
       .order('display_order', { ascending: true })
 
     if (error) {

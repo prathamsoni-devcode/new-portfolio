@@ -8,9 +8,15 @@ const supabase = createClient(
 
 export async function GET() {
   try {
-    const { data, error } = await supabase
-      .from('skills')
-      .select('*')
+    const { data: categories, error } = await supabase
+      .from('skill_categories')
+      .select(`
+        *,
+        skills(
+          *,
+          skill_sub_skills(*)
+        )
+      `)
       .order('display_order', { ascending: true })
 
     if (error) {
@@ -18,7 +24,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Failed to fetch skills' }, { status: 500 })
     }
 
-    return NextResponse.json(data || [])
+    return NextResponse.json(categories || [])
   } catch (error) {
     console.error('Error in skills GET:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
